@@ -1,0 +1,115 @@
+<app-modal *ngIf="dataUser" [dataUser]="dataUser" [carts]="cartTemp" (onClose)="closePopup()"> </app-modal>
+
+<section *ngIf="dataItem.length == 0">
+    <div class="flex flex-col gap-4 pb-[50px] container my-8">
+        <div class="text-[20px] font-bold  mt-2 px-5 flex gap-4 items-center justify-start border-[1px] border-[#efefef] py-4">Your cart is currently empty</div>
+        <div class="italic text-[#e75e4e;]"><span class=""><a routerLink="/product" routerLinkActive="active" ariaCurrentWhenActive="page"> Return to shop</a></span></div>
+    </div>
+</section>
+
+<div *ngIf="dataItem.length != 0" class="container app__nav mb-[50px] mt-[100px]" >
+    <div class="flex">
+           <div class="w-1/2 flex flex-col gap-5 px-10 py-[70px]">
+               <div class="flex flex-col gap-3">
+                    <div class="text-[20px]" >Checkout</div>
+                    <div class="text-[13px]">
+                       <ul class="flex gap-2">
+                           <li class="flex items-center gap-2" ><span class="text-blue-500">Cart</span> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                           <li class="flex items-center gap-2"><span>Information</span> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                           <li class="flex items-center gap-2"><span class="text-[rgba(0,0,0,0.56);]">Shipping</span> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                           <li><span class="text-[rgba(0,0,0,0.56);]">Payment</span> </li>
+                       </ul>
+                    </div>
+                    <div class="flex justify-between items-center">
+                       <div class="text-[18px]">Form</div>
+                       <div class="text-[14px]"><span>Have an account ?</span> <span class="text-blue-500">Login</span> </div>
+                    </div>
+               </div>
+               <form class="grid grid-cols-2 gap-4" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                   <div class=" w-full">
+                     <input formControlName="name"  class="text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]" type="text" placeholder="Enter name"  />
+                     
+                    <span *ngIf="addForm.get('name').hasError('required')" class="text-red-500 text-[14px]">* Name is required</span>
+                    <span *ngIf="addForm.get('name').hasError('minlength')" class="text-red-500 text-[14px]">* Name is at least 6 characters</span>
+                   </div>
+                   <div class="w-full">
+                     <input formControlName="email" class="text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]" type="email" placeholder="Enter email"  />
+                   
+                     <span *ngIf="addForm.get('email').hasError('required') " class="text-red-500 text-[14px]">* Email is required</span>
+                     <span *ngIf="addForm.get('email').hasError('email') " class="text-red-500 text-[14px]">* Email is invalid</span>
+                   </div>
+                   <div class="col-span-2 w-full">
+                      <input formControlName="phone_number" class="text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]" type="text" placeholder="Enter phone number"  />
+                      <span *ngIf="addForm.get('phone_number').hasError('vietnamesePhoneNumber')" class="text-red-500 text-[14px]">* Phone number  is invalid</span>
+                   </div>
+                   <div class="w-full">
+                       <select (change)="onChangeCity($event)"  formControlName="city" class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
+                           <option value="" class="">-- Select city --</option>
+                           <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataCities; let i = index"> {{item.name}} </option>
+                       </select>
+                       <span *ngIf="addForm.get('city').hasError('required') " class="text-red-500 text-[14px]">* City is required</span>
+                   </div>
+                   <div class="w-full">
+                       <select (change)="onChangeDistrict($event)" formControlName="district"   class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
+                           <option value="" class="">-- Select district --</option>
+                           <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataDistricts; let i = index"> {{item.name}} </option>
+                       </select>
+                       <span *ngIf="addForm.get('district').hasError('required') " class="text-red-500 text-[14px]">* District is required</span>
+                   </div>
+                   <div class="col-span-2 w-full">
+                       <select formControlName="ward"  class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
+                            <option value="" class="">-- Select ward -- </option>
+                            <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataWards; let i = index"> {{item.name}} </option>
+                       </select>
+                       <span *ngIf="addForm.get('ward').hasError('required') " class="text-red-500 text-[14px]">* Ward is required</span>
+                   </div>
+                   <div class=" col-span-2 w-full">
+                      <input  formControlName="address" class="text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]" type="text" placeholder="Enter address" id="address-order" />
+                      <span *ngIf="addForm.get('address').hasError('required')" class="text-red-500 text-[14px]">* Address is required</span>
+                      <span *ngIf="addForm.get('address').hasError('minlength')" class="text-red-500 text-[14px]">* Address is at least 6 characters</span>
+                   </div>
+                   <div class="col-span-2 w-full"><input formControlName="note" class="text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]" type="text" placeholder="Enter note" id="note-order" /></div>
+                   <div class="col-span-2 w-full flex items-center gap-3 text-[15px]"> <input type="checkbox" /> <label>Save information for next time</label> </div>
+                   <div class="py-6 col-span-2 w-full flex justify-end text-[15px]"> <button [disabled]="addForm.invalid" type="submit" class="bg-[rgb(25,144,198);] text-white py-5 px-6 rounded-[7px]" > Continue to shipping</button></div>
+               </form>
+           
+           </div>
+           <div class="w-1/2 bg-[rgb(250,250,250);] px-10 py-[70px]">
+               <div class="flex flex-col gap-4">
+                  
+
+                <div *ngFor="let item of dataItem ; let i = index" class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div class=" relative w-[72px] h-[72px] rounded-[8px] border-[2px] border-[#eeeeee]">
+                            <img class="w-full h-full rounded-[8px]" src="{{item.image}}" />
+                            <div class="flex justify-center items-center absolute bg-red-400 text-white rounded-full w-[20px] h-[20px] top-[-8px] text-[14px] right-[-10px]"> {{item.quantity}} </div>
+                        </div>
+                        <div class="text-[15px]">{{item.name}}</div>
+                    </div>
+                    <div><span class="text-[15px]">{{helperService.formatVNDCurrency(item.price * item.quantity)}}</span></div>
+                </div>
+
+                   
+               </div>
+               <div class="flex flex-col gap-[6px] mt-5">
+                   <div class="flex justify-between items-center text-[15px]"> 
+                       <span>Subtotal</span>
+                       <span>{{getSubTotalCart()}}</span>
+                   </div>
+                   <div class="flex justify-between items-center text-[15px]"> 
+                       <span>Shipping</span>
+                       <span class="text-[rgba(0,0,0,0.56);] text-[13px]">Calculated at next step</span>
+                   </div>
+                   <div class="flex justify-between items-center text-[15px]"> 
+                       <span>Estimated taxes</span>
+                       <span > $00.00$</span>
+                   </div>
+                   <div class="flex justify-between items-center text-[17px]"> 
+                       <span class=" font-bold" >Total</span>
+                       <span ><span class="text-[rgba(0,0,0,0.56);] text-[13px]">VND</span> {{getSubTotalCart()}} </span>
+                   </div>
+               
+               </div>
+           </div>
+    </div>
+</div>

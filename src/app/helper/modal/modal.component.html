@@ -1,0 +1,78 @@
+<section class=" pt-[80px] z-[9999] flex bg-[#00000054] w-screen h-screen fixed top-[0px] left-[0px]  justify-center">
+  <div class="bg-white w-[600px] h-[90%]  overflow-y-auto ">
+      <div class="bg-[#e75e4e;] flex justify-between px-10 py-5 items-center ">
+          <div class="">
+              <a href="/product" class="text-[20px] text-white" data-navigo>Back to shop</a>
+          </div>
+          <div (click)="onClosePopup()" class="text-[30px] text-white cursor-pointer">
+              &times;
+          </div>
+      </div>
+      <div class="px-10  flex justify-center items-center flex-col gap-2">
+          <div class="">
+              <img src="https://cdn.icon-icons.com/icons2/2785/PNG/512/trolley_cart_success_icon_177398.png" alt="" class="w-[200px] h-[200px]">
+          </div>
+          <div class="font-bold text-[30px]">Thank You For Your Order!</div>
+          <div class="text-center text-[#777777;]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium iste ipsa numquam odio dolores, nam.</div>
+      </div>
+
+      <div class="px-10 mt-[32px]">
+          <div class="text-white flex justify-between bg-[#e75e4e;] p-2 font-bold">
+              <div class="">
+                  Order Confirmation #
+              </div>
+              <div class=" w-[130px]">
+                  Price
+              </div>
+          </div>
+          <div class="mt-2 show-list-ordered flex flex-col p-2 gap-3">
+
+
+            <div *ngFor="let item of carts ; let i = index" class="flex justify-between ">
+              <div class="">
+                  {{item.name}} (&times; {{item.quantity}})
+              </div>
+              <div class=" w-[130px]">
+                 {{helperService.formatVNDCurrency(item.price * item.quantity)}}
+              </div>
+           </div>
+
+
+
+          </div>
+          <div class="mt-2  p-2 font-bold">
+              <div class="py-2 flex justify-between border-b-[3px] border-t-[3px] border-[#eeeeee]">
+                  <div class="uppercase">
+                      total
+                  </div>
+                  <div class="w-[130px]">
+                    {{dataUser.total}}
+                  </div>
+               </div>
+          </div>
+      </div>
+
+      <div class="px-12 flex flex-col gap-[2px] pb-5">
+           <div class="flex justify-between font-bold">
+              <div class="">Delivery Address</div>
+              <div class="">Estimated Delivery Date</div>
+           </div>
+           <div class="flex justify-between mt-2">
+              <div class="">(Name) {{dataUser.name}}</div>
+              <div class="">{{dataUser.createdAt}}</div>
+           </div>
+           <div class="flex justify-between ">
+              <div class="">(Email) {{dataUser.email}}</div>
+           </div>
+           <div class="flex justify-between ">
+              <div class="">(Phone number) {{dataUser.phone_number}}</div>
+           </div>
+           <div class="flex justify-between ">
+              <div class="">(Address) {{dataUser.address}}</div>
+           </div>
+           <div class="flex justify-between ">
+              <div class="">(Note) {{dataUser.note}} </div>
+           </div>
+      </div>
+  </div>
+</section>

@@ -1,0 +1,131 @@
+<section  class="add-popup-cart gap-4 flex flex-col  fixed top-20 right-[10px] h-screen w-auto z-[9999]">
+
+    <div *ngFor="let item of arrCartPopup ; let i = index"  class="shadow-[5px_5px_60px_5px_rgba(0,0,0,0.3)] rounded-[10px] flex gap-3 bg-white py-3 px-5">
+        <div class="relative ">
+            <div class="text-red-600 absolute top-[0px] left-[0px] text-[20px]">&times;</div>
+            <img src={{item.image}} alt="" class="w-[90px] h-[90px] object-cover">
+        </div>
+
+        <div class="flex flex-col w-[220px] ">
+            <a href="" class=""><span class="w-[220px] ">{{item.name}}</span></a>
+            <a href="" class=""> <span class=" text-[#acacac]">{{formatVNDCurrency(item.price)}}</span></a>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="mt-5 py-[180px] flex items-center justify-center bg-no-repeat bg-cover bg-[url('https://nou-bakery.myshopify.com/cdn/shop/files/01.jpg?v=1613699059')]">
+    <div class=" text-center">
+        <h1 class="text-white text-[40px]"> PRODUCTS </h1>
+        <div class="mt-2 text-[16px] text-[#b3b3b3;]">
+        <a href="" ><span class="text-[#b3b3b3;]">HOME</span></a> / <span class="text-[#e75e4e;]">PRODUCTS</span>
+        </div>
+        
+    </div>
+</section>
+
+
+<section class="bg-[#fff;] my-[80px] ">
+    <div class="container">
+        <div class="flex gap-8">
+            <div class="w-[280px] flex-none flex flex-col gap-[60px]">
+                 <div class="flex flex-col gap-4">
+                    <div class="text-[23px] uppercase tracking-[4px]"><span>categories</span></div>
+
+                    <div *ngFor="let category of categories; let i = index" class="cursor-pointer text-[#626262;] text-[15px]" ><span (click)="filter('category', category._id)"><span *ngIf="category.lever == 1"> ---</span> {{category.name}}</span></div>
+                    
+                 </div>
+                 <div class="flex flex-col gap-4">
+                    <div class="text-[23px] uppercase tracking-[4px]"><span>filter by price</span></div>
+                    <div class="text-[#626262;] text-[15px] flex flex-col gap-4">
+                         <div *ngFor="let filterItem of filterByPrice; let i = index">
+                            <input (click)="filter('price', {min : filterItem.min, max : filterItem.max})" id="focus-{{i}}"  type="radio" name="filter" />
+                            <label for="focus-{{i}}" class="pl-2"> {{filterItem.text}} </label>
+                        </div>
+                      
+                    </div>
+                    
+                 </div>
+                 <div class="flex flex-col gap-4">
+                    <div class="text-[23px] uppercase tracking-[4px]"><span>Your filter</span></div>
+                    <div class="flex gap-4 flex-wrap">
+                        <button *ngIf="objectSort._min"  class="hover:border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;] border-[#d9d9d9;]"> Từ {{formatVNDCurrency(objectSort._min)}}</button>
+                        <button *ngIf="objectSort._max"  class="hover:border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;] border-[#d9d9d9;]"> Đến {{formatVNDCurrency(objectSort._max)}}</button>
+                        <button *ngIf="objectSort._sort"  class="hover:border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;] border-[#d9d9d9;]"> Sắp xếp theo {{objectSort._sort}} {{objectSort._order == 'asc' ? 'Tăng dần': 'Giảm dần'}}</button>
+                        <button *ngIf="categoryFilter"  class="hover:border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;] border-[#d9d9d9;]"> Danh mục {{getNameCategory(categoryFilter)}}</button>
+                        <button *ngIf="keySearch"  class="hover:border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;] border-[#d9d9d9;]"> Từ khóa : "{{keySearch}}"</button>
+                        <a routerLink="/product" routerLinkActive="active" ariaCurrentWhenActive="page" class=""> <button  class="text-white bg-[#ee7560;] border-[#e75e4e;] hover:text-white hover:bg-[#e75e4e;] text-[12px] py-[4px] px-[15px] rounded-full border-[2px] text-[#626262;]"> Xóa tất cả</button></a>
+                    </div>
+                </div>
+                 <div class="flex flex-col gap-4">
+                    <div class="text-[23px] uppercase tracking-[4px]"><span>Ads banner</span></div>
+                    <div><img src="https://nou-bakery.myshopify.com/cdn/shop/files/banner2x_270x.png?v=1613699065" class="w-full"/></div>
+                 </div>
+                
+            </div>
+            <div class="grow">
+                <div class="flex gap-8">
+                    <div class="w-1/3">
+                        <img src="https://nou-bakery.myshopify.com/cdn/shop/files/012x.jpg?v=1613699060" class="w-full h-full" />
+                    </div>
+                    <div class="w-2/3">
+                        <img src="https://nou-bakery.myshopify.com/cdn/shop/files/022x.jpg?v=1613699060" class="w-full h-full" />
+                    </div>
+                </div>
+
+                <div class="flex gap-7 items-center py-[90px]">
+                   <span class="text-[13px] uppercase text-[#626262;]">Sort by: </span>
+                    <select (change)="filter('sort', $event)" class="text-[#626262;] py-3 px-5 bg-white border-[1px] rounded-full border-[#d9d9d9;]" >
+                        <option value="1" >-- Sort order by Asc via price --</option>
+                        <option value="2" >-- Sort order by Desc via price --</option>
+                        <option value="3" >-- Sort by name --</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-3 gap-8 show-product scroll-target">
+                    <div *ngFor="let item of dataItem ; let i = index">
+                        <div class="relative group/item">
+                            <img src={{item.image}} class="w-full">
+                            <div class=" invisible group-hover/item:visible text-white absolute top-[0px] left-[0px] w-full h-full flex justify-center items-center gap-4">
+                                <div class=" bg-black rounded-full w-[45px] h-[45px] flex items-center justify-center"><i class="fa fa-heart" aria-hidden="true"></i></div>
+                                <div class=" bg-black rounded-full w-[45px] h-[45px] flex items-center justify-center"><i class="fa fa-search" aria-hidden="true"></i></div>
+                                <div (click)="addToCart(item.name, item.price_sale, item.image, item._id)"  class=" cursor-pointer bg-black rounded-full w-[45px] h-[45px] flex items-center justify-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                            </div>
+                            <div class=" absolute top-[0px] left-[0px] rotate-[-17deg] flex justify-center items-center bg-contain h-[65px] w-[65px] text-white bg-[url('https://nou-bakery.myshopify.com/cdn/shop/t/7/assets/badge-2.png?v=147666975709106470991695832898')]">
+                             {{formatSale(item.price, item.price_sale)}}%
+                            </div>
+                            <div class=" absolute top-[0px] right-[0px] rotate-[-17deg] flex justify-center items-center bg-contain h-[65px] w-[65px] text-white bg-[url('https://nou-bakery.myshopify.com/cdn/shop/t/7/assets/badge-1.png?v=132605518465251901091695832898')]">
+                                New
+                            </div>
+                        </div>
+                        <a href="/product/" data-navigo>
+                        <div class="flex flex-col items-center gap-2 mt-10">
+                            <div class="text-[18px]"> <a routerLink="/{{item._id}}" routerLinkActive="active" ariaCurrentWhenActive="page" > {{item.name}} </a></div>
+                            <div class="text-[#4e3939;] uppercase text-[11px]">{{item.category_id.name}}</div>
+                            <div class="text-[15px] flex text-[#edb867;]">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex text-[17px] items-end gap-1">
+                                <span class="text-[#777;] text-[14px] line-through">{{formatVNDCurrency(item.price)}}</span>
+                                <span>{{formatVNDCurrency(item.price_sale)}}</span>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="py-[80px]  gap-3 flex justify-center items-center">
+                        
+                        <div (click)="filter('page', paginate.next_page)" *ngIf="paginate.next_page" class="cursor-pointer bg-[#ee7560] text-white text-[14px] rounded-[20px] px-[17px] h-[45px] flex justify-center items-center">Xem thêm ({{paginate.more_item}}) sản phẩm  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
+                        
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</section>
