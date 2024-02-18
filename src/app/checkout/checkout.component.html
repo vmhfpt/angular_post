@@ -44,22 +44,22 @@
                    </div>
                    <div class="w-full">
                        <select (change)="onChangeCity($event)"  formControlName="city" class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
-                           <option value="" class="">-- Select city --</option>
-                           <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataCities; let i = index"> {{item.name}} </option>
+                           <option value="" class="">-- Select city --</option>    
+                           <option value="{{item.province_id}}-{{item.province_name}}" *ngFor="let item of dataCities; let i = index"> {{item.province_name}} </option>
                        </select>
                        <span *ngIf="addForm.get('city').hasError('required') " class="text-red-500 text-[14px]">* City is required</span>
                    </div>
                    <div class="w-full">
                        <select (change)="onChangeDistrict($event)" formControlName="district"   class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
                            <option value="" class="">-- Select district --</option>
-                           <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataDistricts; let i = index"> {{item.name}} </option>
+                           <option value="{{item.district_id}}-{{item.district_name}}" *ngFor="let item of dataDistricts; let i = index"> {{item.district_name}} </option>
                        </select>
                        <span *ngIf="addForm.get('district').hasError('required') " class="text-red-500 text-[14px]">* District is required</span>
                    </div>
                    <div class="col-span-2 w-full">
                        <select formControlName="ward"  class="bg-white text-[14px] py-3 px-4 w-full border-[1px] border-[#eeeeee]">
                             <option value="" class="">-- Select ward -- </option>
-                            <option value="{{item.code}}-{{item.name}}" *ngFor="let item of dataWards; let i = index"> {{item.name}} </option>
+                            <option value="{{item.ward_id}}-{{item.ward_name}}" *ngFor="let item of dataWards; let i = index"> {{item.ward_name}} </option>
                        </select>
                        <span *ngIf="addForm.get('ward').hasError('required') " class="text-red-500 text-[14px]">* Ward is required</span>
                    </div>

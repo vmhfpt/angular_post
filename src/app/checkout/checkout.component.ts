@@ -42,8 +42,11 @@ export class CheckoutComponent implements OnInit{
     })
 
 
-    this.http.get('https://provinces.open-api.vn/api/').subscribe((data : any) => {
-      this.dataCities = data;
+    this.http.get('https://vapi.vnappmob.com/api/province').subscribe((data : any) => {
+      //
+      //https://provinces.open-api.vn/api/
+      
+      this.dataCities = data.results;
     })
   }
 
@@ -69,8 +72,10 @@ export class CheckoutComponent implements OnInit{
     });
     if(e.target.value != ''){
       let [id] = e.target.value.split('-');
-      this.http.get(`https://provinces.open-api.vn/api/p/${id}/?depth=2`).subscribe((data : any) => {
-        this.dataDistricts = data.districts;
+      this.http.get(`https://vapi.vnappmob.com/api/province/district/${id}`).subscribe((data : any) => {
+        //https://provinces.open-api.vn/api/p/${id}/?depth=2
+        //
+        this.dataDistricts = data.results;
       })
     }
   }
@@ -80,8 +85,9 @@ export class CheckoutComponent implements OnInit{
       ward : ''
     });
     let [id] = e.target.value.split('-');
-    this.http.get(`https://provinces.open-api.vn/api/d/${id}/?depth=2`).subscribe((data : any) => {
-       this.dataWards = data.wards;
+    this.http.get(`https://vapi.vnappmob.com/api/province/ward/${id}`).subscribe((data : any) => {
+      //https://provinces.open-api.vn/api/d/${id}/?depth=2
+       this.dataWards = data.results;
     })
   }
   public getSubTotalCart() : string{

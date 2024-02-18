@@ -85,4 +85,8 @@ export class ProductService {
    getCommentsByProductId(productId : string){
     return this.request('get', `${baseUrl}/comments/product?product_id=${productId}`);
    }
+
+   getHome(){
+    return this.request('get', `${baseUrl}/products/home`);
+   }
 }
